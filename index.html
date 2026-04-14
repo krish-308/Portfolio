@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>B Kruthick Sachin | AI and Data Science</title>
+<link href="https://fonts.googleapis.com/css2?family=Clash+Display:wght@400;500;600;700&family=General+Sans:wght@300;400;500&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:       #F5F2EB;
+    --bg2:      #EDE9DF;
+    --surface:  #FFFFFF;
+    --ink:      #1A1814;
+    --ink2:     #5A574F;
+    --ink3:     #9A9790;
+    --accent:   #2A5FD4;
+    --accent2:  #1A3F94;
+    --line:     rgba(26,24,20,0.1);
+    --line2:    rgba(26,24,20,0.06);
+  }
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'General Sans', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+  }
+
+  /* dot grid */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: radial-gradient(circle, rgba(26,24,20,0.12) 1px, transparent 1px);
+    background-size: 28px 28px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ===== NAV ===== */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.1rem 4rem;
+    background: rgba(245,242,235,0.9);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .nav-logo {
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 500;
+    font-size: 0.78rem;
+    letter-spacing: 0.06em;
+    color: var(--ink);
+    text-decoration: none;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink3);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--ink); }
+
+  /* ===== HERO ===== */
+  .hero {
+    position: relative;
+    z-index: 1;
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    padding-top: 5rem;
+  }
+
+  .hero-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 6rem 4rem 6rem;
+    border-right: 1px solid var(--line);
+  }
+
+  .hero-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.63rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink3);
+    margin-bottom: 2rem;
+  }
+
+  .hero-name {
+    font-family: 'Clash Display', sans-serif;
+    font-weight: 700;
+    font-size: clamp(2.8rem, 6vw, 5.5rem);
+    line-height: 1.0;
+    letter-spacing: -0.03em;
+    color: var(--ink);
+  }
+
+  .hero-name .first { display: block; }
+  .hero-name .last {
+    display: block;
+    color: var(--accent);
+  }
+
+  .hero-bio {
+    margin-top: 2rem;
+    font-size: 1rem;
+    line-height: 1.8;
+    color: var(--ink2);
+    max-width: 420px;
+  }
+
+  .hero-bio strong {
+    color: var(--ink);
+    font-weight: 500;
+  }
+
+  .hero-ctas {
+    display: flex;
+    gap: 0.75rem;
+    margin-top: 2.5rem;
+    flex-wrap: wrap;
+  }
+
+  .btn-solid {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.7rem 1.6rem;
+    background: var(--ink);
+    color: var(--bg);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.67rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: 1.5px solid var(--ink);
+    transition: background 0.2s, color 0.2s;
+  }
+  .btn-solid:hover { background: var(--accent); border-color: var(--accent); }
+
+  .btn-outline {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.7rem 1.6rem;
+    background: transparent;
+    color: var(--ink);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.67rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: 1.5px solid var(--line);
+    transition: border-color 0.2s;
+  }
+  .btn-outline:hover { border-color: var(--ink); }
+
+  /* hero right */
+  .hero-right {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 6rem 4rem;
+    gap: 1.5rem;
+  }
+
+  .info-block {
+    border: 1px solid var(--line);
+    background: var(--surface);
+    padding: 1.4rem 1.6rem;
+  }
+
+  .info-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.58rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink3);
+    margin-bottom: 0.5rem;
+    display: block;
+  }
+
+  .info-value {
+    font-family: 'Clash Display', sans-serif;
+    font-weight: 600;
+    font-size: 1.05rem;
+    color: var(--ink);
+  }
+
+  .info-sub {
+    font-size: 0.82rem;
+    color: var(--ink2);
+    margin-top: 0.2rem;
+  }
+
+  .skills-block {
+    border: 1px solid var(--line);
+    background: var(--surface);
+    padding: 1.4rem 1.6rem;
+  }
+
+  .skills-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.58rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink3);
+    margin-bottom: 1rem;
+    display: block;
+  }
+
+  .skills-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  .skill-chip {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.62rem;
+    padding: 0.3rem 0.7rem;
+    border: 1px solid var(--line);
+    color: var(--ink2);
+    background: var(--bg2);
+    letter-spacing: 0.04em;
+  }
+
+  /* ===== FULL-WIDTH RULE ===== */
+  .full-rule {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    height: 1px;
+    background: var(--line);
+  }
+
+  /* ===== SECTION WRAPPER ===== */
+  .section-wrap {
+    position: relative;
+    z-index: 1;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 6rem 4rem;
+  }
+
+  .sec-head {
+    display: flex;
+    align-items: baseline;
+    gap: 1.2rem;
+    margin-bottom: 3.5rem;
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 1.2rem;
+  }
+
+  .sec-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    color: var(--ink3);
+  }
+
+  .sec-title {
+    font-family: 'Clash Display', sans-serif;
+    font-weight: 700;
+    font-size: clamp(1.6rem, 3.5vw, 2.6rem);
+    letter-spacing: -0.02em;
+    color: var(--ink);
+  }
+
+  /* ===== PROJECT ===== */
+  .project-card {
+    border: 1px solid var(--line);
+    background: var(--surface);
+    padding: 2.5rem;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 2rem;
+    align-items: start;
+    transition: border-color 0.2s;
+  }
+  .project-card:hover { border-color: var(--accent); }
+
+  .project-badge {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.58rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--accent);
+    border: 1px solid rgba(42,95,212,0.3);
+    padding: 0.25rem 0.65rem;
+    display: inline-block;
+    margin-bottom: 1rem;
+  }
+
+  .project-title {
+    font-family: 'Clash Display', sans-serif;
+    font-weight: 600;
+    font-size: 1.5rem;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    margin-bottom: 0.9rem;
+  }
+
+  .project-desc {
+    font-size: 0.93rem;
+    line-height: 1.8;
+    color: var(--ink2);
+    margin-bottom: 1.5rem;
+    max-width: 620px;
+  }
+
+  .project-stack {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .stack-chip {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.06em;
+    padding: 0.3rem 0.7rem;
+    background: var(--bg2);
+    border: 1px solid var(--line);
+    color: var(--ink2);
+  }
+
+  .project-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.67rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    text-decoration: none;
+    border: 1px solid rgba(42,95,212,0.25);
+    padding: 0.6rem 1.2rem;
+    transition: background 0.2s;
+    white-space: nowrap;
+  }
+  .project-link:hover { background: rgba(42,95,212,0.06); }
+
+  /* what I'm learning section */
+  .learning-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+  }
+
+  .learn-cell {
+    background: var(--surface);
+    padding: 2rem;
+  }
+
+  .learn-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 2rem;
+    font-weight: 300;
+    color: var(--line);
+    display: block;
+    margin-bottom: 0.5rem;
+    line-height: 1;
+  }
+
+  .learn-title {
+    font-family: 'Clash Display', sans-serif;
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--ink);
+    margin-bottom: 0.5rem;
+  }
+
+  .learn-desc {
+    font-size: 0.82rem;
+    line-height: 1.7;
+    color: var(--ink2);
+  }
+
+  /* ===== ABOUT ===== */
+  .about-cols {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 5rem;
+    align-items: start;
+  }
+
+  .about-p {
+    font-size: 1rem;
+    line-height: 1.9;
+    color: var(--ink2);
+    margin-bottom: 1.25rem;
+  }
+  .about-p strong { color: var(--ink); font-weight: 500; }
+
+  .aside-box {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    padding: 1.8rem;
+  }
+
+  .aside-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.8rem 0;
+    border-bottom: 1px solid var(--line2);
+    font-size: 0.85rem;
+  }
+  .aside-row:last-child { border-bottom: none; }
+
+  .aside-key {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink3);
+  }
+
+  .aside-val { color: var(--ink); }
+
+  /* ===== CONNECT ===== */
+  .connect-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+
+  .connect-card {
+    border: 1px solid var(--line);
+    background: var(--surface);
+    padding: 1.8rem;
+    text-decoration: none;
+    display: block;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .connect-card:hover { border-color: var(--ink); background: var(--bg2); }
+
+  .connect-platform {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink3);
+    display: block;
+    margin-bottom: 0.6rem;
+  }
+
+  .connect-name {
+    font-family: 'Clash Display', sans-serif;
+    font-weight: 600;
+    font-size: 1.05rem;
+    color: var(--ink);
+    margin-bottom: 0.5rem;
+  }
+
+  .connect-desc {
+    font-size: 0.82rem;
+    line-height: 1.65;
+    color: var(--ink2);
+  }
+
+  /* ===== FOOTER ===== */
+  footer {
+    position: relative;
+    z-index: 1;
+    border-top: 1px solid var(--line);
+    padding: 2rem 4rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .foot-left {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.1em;
+    color: var(--ink3);
+  }
+
+  .foot-right {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.1em;
+    color: var(--ink3);
+  }
+
+  /* ===== FADE IN ===== */
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .hero-label  { animation: rise 0.5s 0.05s both; }
+  .hero-name   { animation: rise 0.5s 0.15s both; }
+  .hero-bio    { animation: rise 0.5s 0.25s both; }
+  .hero-ctas   { animation: rise 0.5s 0.35s both; }
+  .hero-right  { animation: rise 0.5s 0.45s both; }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 820px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    .hero { grid-template-columns: 1fr; padding-top: 4rem; }
+    .hero-left { padding: 3rem 1.5rem 2rem; border-right: none; border-bottom: 1px solid var(--line); }
+    .hero-right { padding: 2rem 1.5rem; }
+    .section-wrap { padding: 3.5rem 1.5rem; }
+    .project-card { grid-template-columns: 1fr; }
+    .about-cols { grid-template-columns: 1fr; gap: 2rem; }
+    .learning-grid { grid-template-columns: 1fr; }
+    .connect-row { grid-template-columns: 1fr; }
+    footer { flex-direction: column; gap: 0.5rem; padding: 1.5rem; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">kruthick.sachin</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#learning">Learning</a></li>
+    <li><a href="#connect">Connect</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-left">
+    <p class="hero-label">B Kruthick Sachin · Portfolio 2025</p>
+    <h1 class="hero-name">
+      <span class="first">Kruthick</span>
+      <span class="last">Sachin.</span>
+    </h1>
+    <p class="hero-bio">
+      Engineering student at <strong>NMIT Bangalore</strong>, 2nd year AI and Data Science. Passionate about <strong>vibe coding, building ML projects from scratch</strong>, and figuring out how intelligent systems actually work, one project at a time.
+    </p>
+    <div class="hero-ctas">
+      <a href="https://github.com/krish-308" target="_blank" class="btn-solid">GitHub ↗</a>
+      <a href="https://www.linkedin.com/in/b-kruthick-sachin-19111a310/" target="_blank" class="btn-outline">LinkedIn →</a>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="info-block">
+      <span class="info-label">Currently Studying</span>
+      <div class="info-value">Artificial Intelligence and Data Science</div>
+      <div class="info-sub">Nitte Meenakshi Institute of Technology · 4th Semester</div>
+    </div>
+    <div class="info-block">
+      <span class="info-label">Focus Areas</span>
+      <div class="info-value">Vibe Coding · ML Projects · Python</div>
+      <div class="info-sub">Building real ML projects, experimenting fast, learning by doing</div>
+    </div>
+    <div class="skills-block">
+      <span class="skills-title">Skills &amp; Tools</span>
+      <div class="skills-list">
+        <span class="skill-chip">Python</span>
+        <span class="skill-chip">NetworkX</span>
+        <span class="skill-chip">Pandas</span>
+        <span class="skill-chip">NumPy</span>
+        <span class="skill-chip">Machine Learning</span>
+        <span class="skill-chip">Graph Theory</span>
+        <span class="skill-chip">SQL</span>
+        <span class="skill-chip">Git</span>
+        <span class="skill-chip">VS Code</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="full-rule"></div>
+
+<!-- PROJECTS -->
+<div class="section-wrap" id="projects">
+  <div class="sec-head">
+    <span class="sec-num">01</span>
+    <h2 class="sec-title">Projects</h2>
+  </div>
+
+  <div class="project-card">
+    <div>
+      <span class="project-badge">AI / ML · Mini Project</span>
+      <h3 class="project-title">Graph Search Algorithm Optimizer</h3>
+      <p class="project-desc">
+        A Python-based project that implements and benchmarks multiple graph search algorithms, comparing performance metrics like time complexity, path efficiency, and node traversal across different graph structures. Built as an AI &amp; ML academic mini project at NMIT, exploring how algorithms like BFS, DFS, and heuristic-based search behave on real graph datasets using NetworkX and Pandas.
+      </p>
+      <div class="project-stack">
+        <span class="stack-chip">Python</span>
+        <span class="stack-chip">NetworkX</span>
+        <span class="stack-chip">Pandas</span>
+        <span class="stack-chip">Graph Theory</span>
+        <span class="stack-chip">Algorithm Analysis</span>
+        <span class="stack-chip">AI/ML</span>
+      </div>
+    </div>
+    <div>
+      <a href="https://github.com/krish-308/AI-ML-ASK-Mini-project" target="_blank" class="project-link">View on GitHub ↗</a>
+    </div>
+  </div>
+</div>
+
+<div class="full-rule"></div>
+
+<!-- LEARNING -->
+<div class="section-wrap" id="learning">
+  <div class="sec-head">
+    <span class="sec-num">02</span>
+    <h2 class="sec-title">What I'm Building Towards</h2>
+  </div>
+
+  <div class="learning-grid">
+    <div class="learn-cell">
+      <span class="learn-num">01</span>
+      <p class="learn-title">Vibe Coding</p>
+      <p class="learn-desc">Building projects by feel, starting with an idea, iterating fast, and figuring things out as they break. The best way to actually learn how things work.</p>
+    </div>
+    <div class="learn-cell">
+      <span class="learn-num">02</span>
+      <p class="learn-title">ML Projects</p>
+      <p class="learn-desc">Hands-on machine learning with real datasets, real models, real results. Less theory for its own sake, more building things that actually produce output.</p>
+    </div>
+    <div class="learn-cell">
+      <span class="learn-num">03</span>
+      <p class="learn-title">Python and Data</p>
+      <p class="learn-desc">NumPy, Pandas, Scikit-learn, NetworkX, getting comfortable with the full stack of tools that turn raw data into something a model can learn from.</p>
+    </div>
+  </div>
+</div>
+
+<div class="full-rule"></div>
+
+<!-- ABOUT -->
+<div class="section-wrap" id="about">
+  <div class="sec-head">
+    <span class="sec-num">03</span>
+    <h2 class="sec-title">About</h2>
+  </div>
+
+  <div class="about-cols">
+    <div>
+      <p class="about-p">
+        I'm <strong>B Kruthick Sachin</strong>, a 2nd year engineering student at <strong>NMIT Bangalore</strong> pursuing Artificial Intelligence and Data Science. My interest in tech is less about the degree and more about genuinely understanding how intelligent systems work, why certain models outperform others, how data shapes behaviour, and what it takes to build something that actually solves a problem.
+      </p>
+      <p class="about-p">
+        My main thing is <strong>vibe coding</strong>, picking up an idea and just building it, learning by doing rather than waiting until everything is perfectly understood. Paired with a genuine interest in ML projects, it keeps momentum going.
+      </p>
+      <p class="about-p">
+        Outside of that, I read novels and psychology books, hit the gym, and believe that understanding how people think is just as useful as understanding how machines do.
+      </p>
+    </div>
+    <div>
+      <div class="aside-box">
+        <div class="aside-row">
+          <span class="aside-key">Full Name</span>
+          <span class="aside-val">B Kruthick Sachin</span>
+        </div>
+        <div class="aside-row">
+          <span class="aside-key">College</span>
+          <span class="aside-val">NMIT, Bangalore</span>
+        </div>
+        <div class="aside-row">
+          <span class="aside-key">Year</span>
+          <span class="aside-val">2nd Year · 4th Semester</span>
+        </div>
+        <div class="aside-row">
+          <span class="aside-key">Branch</span>
+          <span class="aside-val">AI and Data Science</span>
+        </div>
+        <div class="aside-row">
+          <span class="aside-key">Location</span>
+          <span class="aside-val">Bengaluru, India</span>
+        </div>
+        <div class="aside-row">
+          <span class="aside-key">Interests</span>
+          <span class="aside-val">Vibe Coding · ML · Gym · Reading</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="full-rule"></div>
+
+<!-- CONNECT -->
+<div class="section-wrap" id="connect">
+  <div class="sec-head">
+    <span class="sec-num">04</span>
+    <h2 class="sec-title">Connect</h2>
+  </div>
+
+  <div class="connect-row">
+    <a href="https://github.com/krish-308" target="_blank" class="connect-card">
+      <span class="connect-platform">GitHub</span>
+      <p class="connect-name">krish-308</p>
+      <p class="connect-desc">Source code, ML experiments, and projects. Starting small, building consistently.</p>
+    </a>
+    <a href="https://www.linkedin.com/in/b-kruthick-sachin-19111a310/" target="_blank" class="connect-card">
+      <span class="connect-platform">LinkedIn</span>
+      <p class="connect-name">B Kruthick Sachin</p>
+      <p class="connect-desc">Academic background, projects, and professional presence as an AI and Data Science engineer in progress.</p>
+    </a>
+    <div class="connect-card" style="cursor: default;">
+      <span class="connect-platform">Open To</span>
+      <p class="connect-name">Internships · Collabs</p>
+      <p class="connect-desc">Interested in AI/ML internships, open source contributions, and project collaborations with other engineers.</p>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <span class="foot-left">B Kruthick Sachin · NMIT Bangalore · AI and Data Science</span>
+  <span class="foot-right">github.com/krish-308</span>
+</footer>
+
+</body>
+</html>
